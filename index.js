@@ -97,16 +97,16 @@ module.exports = async (req, res) => {
                 let num = Math.floor(sum / 35);
                 response_text += ' - это примерно ' + num + ' ';
                 response_tts += ' sil <[500]> это прим+ерно ' + num + ' ';
-                if (sum % 100 > 4 && sum % 100 < 21) {
+                if (num % 100 > 4 && sum % 100 < 21) {
                     response_text += 'дошиков';
                     response_tts += 'дошиков <[ d oo sh i k o f ]>';
-                } else if (sum % 10 == 0) {
+                } else if (num % 10 == 0) {
                     response_text += 'дошиков';
                     response_tts += 'дошиков <[ d oo sh i k o f ]>';
-                } else if (sum % 10 == 1) {
+                } else if (num % 10 == 1) {
                     response_text += 'дошик';
                     response_tts += 'дошик <[ d oo sh i k ]>';
-                } else if (sum % 10 < 5) {
+                } else if (num % 10 < 5) {
                     response_text += 'дошика';
                     response_tts += 'дошика <[ d oo sh i k a ]>';
                 }
