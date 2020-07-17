@@ -4,7 +4,7 @@ const { json } = require('micro');
 function toArr(str) {
     let sub = '';
     let arr = [];
-    for (let chr in str) {
+    for (let chr of str) {
         if (chr == ' ') {
             arr.push(sub);
             sub = '';
@@ -36,7 +36,7 @@ module.exports = async (req, res) => {
         let tokens_arr = toArr(request.command);
     
         let cnt = 0;
-        for (let chr in request.command) {
+        for (let chr of request.command) {
             if (chr == ' ') cnt += 1;
             if (chr == '$') {
                 usd_in = true;
@@ -64,7 +64,7 @@ module.exports = async (req, res) => {
         let dont_understand_tts = 'извин+ите sil <[200]> я вас не поним+аю.';
         
         if (token_pos == 0) {
-            response_text = dont_understand_text + 1 + cnt + tokens_arr[0];
+            response_text = dont_understand_text + 1 + cnt + tokens_arr;
             response_tts = dont_understand_tts;
         } else if (!usd_in && !eur_in && !rub_in) {
             response_text = dont_understand_text + 2;
