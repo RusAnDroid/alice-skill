@@ -1,7 +1,7 @@
 // Для асинхронной работы используется пакет micro.
 const { json } = require('micro');
 
-function toArray(str) {
+function toArr(str) {
     let sub = '';
     let arr = [];
     for (let chr of str) {
