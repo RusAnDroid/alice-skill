@@ -65,20 +65,20 @@ module.exports = async (req, res) => {
         let dont_understand_tts = 'извин+ите sil <[200]> я вас не поним+аю.';
         
         if (token_pos == 0) {
-            response_text = dont_understand_text + 1 + cnt + tokens_arr;
+            response_text = dont_understand_text;
             response_tts = dont_understand_tts;
         } else if (!usd_in && !eur_in && !rub_in) {
-            response_text = dont_understand_text + 2;
+            response_text = dont_understand_text;
             response_tts = dont_understand_tts;
         } else if (usd_in && eur_in || usd_in && rub_in || eur_in && rub_in) {
-            response_text = dont_understand_text + 3;
+            response_text = dont_understand_text;
             response_tts = dont_understand_tts;
         } else if (rub_in) {
             if (tokens_arr[token_pos - 1].replace(/\s/g, '').length === 0 || isNaN(tokens_arr[token_pos - 1])) {
                 response_text = dont_understand_text + 4;
                 response_tts = dont_understand_tts;
             } else {
-                let sum = tokens_arr[cnt - 1];
+                let sum = tokens_arr[token_pos - 1];
                 response_text = 'Учитывая среднестатистическую цену девяностограммового дошика - 35 рублей, ' + sum + ' ';
                 response_tts = 'учи+тывая средн+е статист+ическую цену девян+о стограм+ового дошика <[ d oo sh i k a ]> sil <[500]> 35 рубл+ей sil <[200]>' + sum;
                 if (sum % 100 > 4 && sum % 100 < 21) {
@@ -94,7 +94,7 @@ module.exports = async (req, res) => {
                     response_text += 'рубля';
                     response_tts += 'рубл+я';
                 }
-                let num = sum / 35;
+                let num = Math.floor(sum / 35);
                 response_text += ' - это примерно ' + num;
                 response_tts += ' sil <[500]> это прим+ерно ' + num;
                 if (sum % 100 > 4 && sum % 100 < 21) {
