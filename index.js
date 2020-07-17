@@ -13,7 +13,7 @@ module.exports = async (req, res) => {
     bool usd_in = false, eur_in = false, rub_in = false;
     let token_pos = 0;
 
-    if (request.original_utterance == null) {
+    if (request.original_utterance == "") {
         response_text = first_response_text;
         response_tts = first_response_tts;
     } else {
