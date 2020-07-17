@@ -84,7 +84,6 @@ module.exports = async (req, res) => {
             }
         }
     }
-    /*
     // В тело ответа вставляются свойства version и session из запроса.
     res.end(JSON.stringify(
         {
@@ -97,24 +96,6 @@ module.exports = async (req, res) => {
                 // Свойство response.end_session возвращается со значением true,
                 // чтобы диалог завершился.
                 end_session: true,
-            },
-        }
-    ));
-    */
-    res.end(JSON.stringify(
-        {
-            version,
-            session,
-            response: {
-                // В свойстве response.text возвращается исходная реплика пользователя.
-                // Если навык был активирован без дополнительной команды,
-                // пользователю нужно сказать "Hello!".
-                text: request.original_utterance || 'Hello!',
-                tts: request.command || 'Hello!',
-
-                // Свойство response.end_session возвращается со значением false,
-                // чтобы диалог не завершался.
-                end_session: false,
             },
         }
     ));
