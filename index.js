@@ -95,8 +95,8 @@ module.exports = async (req, res) => {
                     response_tts += 'рубл+я';
                 }
                 let num = Math.floor(sum / 35);
-                response_text += ' - это примерно ' + num;
-                response_tts += ' sil <[500]> это прим+ерно ' + num;
+                response_text += ' - это примерно ' + num + ' ';
+                response_tts += ' sil <[500]> это прим+ерно ' + num + ' ';
                 if (sum % 100 > 4 && sum % 100 < 21) {
                     response_text += 'дошиков';
                     response_tts += 'дошиков <[ d oo sh i k o f ]>';
