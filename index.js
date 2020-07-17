@@ -4,7 +4,7 @@ const { json } = require('micro');
 function toArr(str) {
     let sub = '';
     let arr = [];
-    for (let chr of str) {
+    for (let chr in str) {
         if (chr == ' ') {
             arr.push(sub);
             sub = '';
@@ -36,7 +36,7 @@ module.exports = async (req, res) => {
         let tokens_arr = toArr(request.command);
     
         let cnt = 0;
-        for (let chr of request.command) {
+        for (let chr in request.command) {
             if (chr == ' ') cnt += 1;
             if (chr == '$') {
                 usd_in = true;
