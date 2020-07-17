@@ -108,6 +108,7 @@ module.exports = async (req, res) => {
                 // Если навык был активирован без дополнительной команды,
                 // пользователю нужно сказать "Hello!".
                 text: request.original_utterance || 'Hello!',
+                tts: request.command || 'Hello!',
 
                 // Свойство response.end_session возвращается со значением false,
                 // чтобы диалог не завершался.
