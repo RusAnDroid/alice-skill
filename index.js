@@ -66,6 +66,9 @@ module.exports = async (req, res) => {
         if (token_pos == 0) {
             response_text = dont_understand_text;
             response_tts = dont_understand_tts;
+        } else if (!usd_in && !eur_in && !rub_in) {
+            response_text = dont_understand_text;
+            response_tts = dont_understand_tts;
         } else if (usd_in && eur_in || usd_in && rub_in || eur_in && rub_in) {
             response_text = dont_understand_text;
             response_tts = dont_understand_tts;
