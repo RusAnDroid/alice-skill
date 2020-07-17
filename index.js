@@ -5,7 +5,7 @@ const { json } = require('micro');
 module.exports = async (req, res) => {
 
     const { request, session, version } = await json(req);
-    
+    /*
     let response_text, response_tts;
     let first_response_text = 'Что мне конвертировать в количество дошиков (по 90г)? Пока что эта функция работает только с суммами в RUB, USD и EUR, так как мой разработчик - ленивая скотина)';
     let first_response_tts = 'что+ мне конверт+ировать в количество девян+о стограм+овых дошиков <[ d oo sh i k o f ]> sil <[650]> пока что эта ф+ункция раб+отает т+олько с с+умами в рубл+ях sil <[200]> д+оларах и евр+о sil <[300]> так как мой разраб+очик sil <[500]> лен+ивая скот+ина'
@@ -95,6 +95,23 @@ module.exports = async (req, res) => {
                 // Свойство response.end_session возвращается со значением true,
                 // чтобы диалог завершился.
                 end_session: true,
+            },
+        }
+    ));
+    */
+    res.end(JSON.stringify(
+        {
+            version,
+            session,
+            response: {
+                // В свойстве response.text возвращается исходная реплика пользователя.
+                // Если навык был активирован без дополнительной команды,
+                // пользователю нужно сказать "Hello!".
+                text: request.original_utterance || 'Hello!',
+
+                // Свойство response.end_session возвращается со значением false,
+                // чтобы диалог не завершался.
+                end_session: false,
             },
         }
     ));
