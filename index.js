@@ -1,6 +1,5 @@
 // Для асинхронной работы используется пакет micro.
 const { json } = require('micro');
-const https = require('https');
 
 function toArr(str) {
     let sub = '';
