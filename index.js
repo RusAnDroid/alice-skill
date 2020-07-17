@@ -1,6 +1,20 @@
 // Для асинхронной работы используется пакет micro.
 const { json } = require('micro');
 
+function toArray(str) {
+    let sub = '';
+    let arr = [];
+    for (let chr of str) {
+        if (chr == ' ') {
+            arr.push(sub);
+            sub = '';
+        } else {
+            sub += chr;
+        }
+    }
+    return arr;
+}
+
 // Запуск асинхронного сервиса.
 module.exports = async (req, res) => {
 
@@ -19,11 +33,19 @@ module.exports = async (req, res) => {
         response_text = first_response_text;
         response_tts = first_response_tts;
     } else {
-        let tokens_arr = request.nlu.tokens;
+        let tokens_arr = toArr(request.command);
     
         let cnt = 0;
+        for (let chr of request.command) {
+            if (chr == ' ') cnt += 1;
+            if (chr == '$') {
+                usd_in = true;
+                token_pos = cnt;
+            }
+        }
+        cnt = 0;
         for (let token of tokens_arr) {
-            if (token == '$') {
+            if (token == 'доллар' || token == 'долларов' || token == 'доллара') {
                 usd_in = true;
                 token_pos = cnt;
             }
@@ -41,14 +63,14 @@ module.exports = async (req, res) => {
         let dont_understand_text = 'Извините, я Вас не понимаю.';
         let dont_understand_tts = 'извин+ите sil <[200]> я вас не поним+аю.';
         
-        if (cnt == 0) {
+        if (token_pos == 0) {
             response_text = dont_understand_text;
             response_tts = dont_understand_tts;
         } else if (usd_in && eur_in || usd_in && rub_in || eur_in && rub_in) {
             response_text = dont_understand_text;
             response_tts = dont_understand_tts;
         } else if (rub_in) {
-            if (tokens_arr[cnt - 1].replace(/\s/g, '').length === 0 || isNaN(tokens_arr[cnt - 1])) {
+            if (tokens_arr[token_pos - 1].replace(/\s/g, '').length === 0 || isNaN(tokens_arr[token_pos - 1])) {
                 response_text = dont_understand_text;
                 response_tts = dont_understand_tts;
             } else {
