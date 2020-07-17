@@ -12,6 +12,7 @@ function toArr(str) {
             sub += chr;
         }
     }
+    arr.push(sub);
     return arr;
 }
 
