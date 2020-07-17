@@ -100,6 +100,9 @@ module.exports = async (req, res) => {
                 if (sum % 100 > 4 && sum % 100 < 21) {
                     response_text += 'дошиков';
                     response_tts += 'дошиков <[ d oo sh i k o f ]>';
+                } else if (sum % 10 == 0) {
+                    response_text += 'дошиков';
+                    response_tts += 'дошиков <[ d oo sh i k o f ]>';
                 } else if (sum % 10 == 1) {
                     response_text += 'дошик';
                     response_tts += 'дошик <[ d oo sh i k ]>';
