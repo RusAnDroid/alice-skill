@@ -1,5 +1,6 @@
 // Для асинхронной работы используется пакет micro.
 const { json } = require('micro');
+var XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
 
 function toArr(str) {
     let sub = '';
@@ -66,7 +67,7 @@ module.exports = async (req, res) => {
         let dont_understand_text = 'Извините, я Вас не понимаю.';
         let dont_understand_tts = 'извин+ите sil <[200]> я вас не поним+аю.';
 
-        if (token_pos == 0) {
+        if (token_pos == 0 && !usd_flag) {
             response_text = dont_understand_text;
             response_tts = dont_understand_tts;
         } else if (!usd_in && !eur_in && !rub_in) {
@@ -114,7 +115,7 @@ module.exports = async (req, res) => {
         } else {
             let xhr = new XMLHttpRequest();
             xhr.open('GET', 'https://www.cbr-xml-daily.ru/daily_json.js', false);
-            //xhr.timeout = 3000;
+            xhr.timeout = 3000;
             xhr.send();
             if (xhr.status == 200) {
                 let valute_obj = JSON.parse(xhr.responseText);
