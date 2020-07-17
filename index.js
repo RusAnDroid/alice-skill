@@ -64,7 +64,7 @@ module.exports = async (req, res) => {
         let dont_understand_tts = 'извин+ите sil <[200]> я вас не поним+аю.';
         
         if (token_pos == 0) {
-            response_text = dont_understand_text + 1 + cnt;
+            response_text = dont_understand_text + 1 + cnt + tokens_arr[0];
             response_tts = dont_understand_tts;
         } else if (!usd_in && !eur_in && !rub_in) {
             response_text = dont_understand_text + 2;
