@@ -20,22 +20,22 @@ function toArr(str) {
 module.exports = async (req, res) => {
 
     const { request, session, version } = await json(req);
-    
+
     let response_text, response_tts;
     let first_response_text = 'Что мне конвертировать в количество дошиков (по 90г)? Пока что эта функция работает только с суммами в RUB, USD и EUR, так как мой разработчик - ленивая скотина)';
     let first_response_tts = 'что+ мне конверт+ировать в количество девян+о стограм+овых дошиков <[ d oo sh i k o f ]> sil <[650]> пока что эта ф+ункция раб+отает т+олько с с+умами в рубл+ях sil <[200]> д+оларах и евр+о sil <[300]> так как мой разраб+очик sil <[500]> лен+ивая скот+ина';
-    
+
     let usd_in = false;
     let eur_in = false;
     let rub_in = false;
     let token_pos = 0;
-
+    
     if (request.original_utterance == "") {
         response_text = first_response_text;
         response_tts = first_response_tts;
     } else {
         let tokens_arr = toArr(request.command);
-    
+
         let cnt = 0;
         for (let chr of request.command) {
             if (chr == ' ') cnt += 1;
@@ -63,7 +63,7 @@ module.exports = async (req, res) => {
 
         let dont_understand_text = 'Извините, я Вас не понимаю.';
         let dont_understand_tts = 'извин+ите sil <[200]> я вас не поним+аю.';
-        
+
         if (token_pos == 0) {
             response_text = dont_understand_text;
             response_tts = dont_understand_tts;
@@ -110,9 +110,25 @@ module.exports = async (req, res) => {
                     response_text += 'дошика';
                     response_tts += 'дошика <[ d oo sh i k a ]>';
                 }
+            } else {
+                let xhr = new XMLHttpRequest();
+                xhr.open('GET', 'https://www.cbr-xml-daily.ru/daily_json.js', false);
+                xhr.timeout = 3000;
+                xhr.send();
+                if (xhr.status == 200) {
+                    let valute_obj = JSON.parse(xhr.responseText);
+                    let usd_coef = Math.floor(valute_obj.Valute.USD.Value);
+                    let eur_coef = Math.floor(valute_obj.Valute.EUR.Value);
+                    if (
+                } else {
+                    response_text = 'Извините, ошибка соединения с Центральным Банком РФ.';
+                    response_tts = 'извин+ите sil <[200]> ошибка соедин+ения с центр+альным б+анком эр эф';
+                }
             }
         }
     }
+
+    
     // В тело ответа вставляются свойства version и session из запроса.
     res.end(JSON.stringify(
         {
