@@ -10,7 +10,9 @@ module.exports = async (req, res) => {
     let first_response_text = 'Что мне конвертировать в количество дошиков (по 90г)? Пока что эта функция работает только с суммами в RUB, USD и EUR, так как мой разработчик - ленивая скотина)';
     let first_response_tts = 'что+ мне конверт+ировать в количество девян+о стограм+овых дошиков <[ d oo sh i k o f ]> sil <[650]> пока что эта ф+ункция раб+отает т+олько с с+умами в рубл+ях sil <[200]> д+оларах и евр+о sil <[300]> так как мой разраб+очик sil <[500]> лен+ивая скот+ина';
     
-    bool usd_in = false, eur_in = false, rub_in = false;
+    let usd_in = false;
+    let eur_in = false;
+    let rub_in = false;
     let token_pos = 0;
 
     if (request.original_utterance == "") {
