@@ -64,17 +64,17 @@ module.exports = async (req, res) => {
         let dont_understand_tts = 'извин+ите sil <[200]> я вас не поним+аю.';
         
         if (token_pos == 0) {
-            response_text = dont_understand_text;
+            response_text = dont_understand_text + 1;
             response_tts = dont_understand_tts;
         } else if (!usd_in && !eur_in && !rub_in) {
-            response_text = dont_understand_text;
+            response_text = dont_understand_text + 2;
             response_tts = dont_understand_tts;
         } else if (usd_in && eur_in || usd_in && rub_in || eur_in && rub_in) {
-            response_text = dont_understand_text;
+            response_text = dont_understand_text + 3;
             response_tts = dont_understand_tts;
         } else if (rub_in) {
             if (tokens_arr[token_pos - 1].replace(/\s/g, '').length === 0 || isNaN(tokens_arr[token_pos - 1])) {
-                response_text = dont_understand_text;
+                response_text = dont_understand_text + 4;
                 response_tts = dont_understand_tts;
             } else {
                 let sum = tokens_arr[cnt - 1];
