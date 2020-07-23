@@ -91,6 +91,9 @@ module.exports = async (req, res) => {
             } else if (sum % 10 < 1) {
                 response_text += 'рубля';
                 response_tts += 'рубл+я';
+            } else if (sum % 10 == 0) {
+                response_text += 'рублей';
+                response_tts += 'рубл+ей';
             } else if (sum % 10 == 1) {
                 response_text += 'рубль';
                 response_tts += 'р+убль';
@@ -146,6 +149,9 @@ module.exports = async (req, res) => {
                     } else if (usd_coef % 10 < 1) {
                         response_text += 'рубля';
                         response_tts += 'рубл+я';
+                    } else if (usd_coef % 10 == 0) {
+                        response_text += 'рублей';
+                        response_tts += 'рубл+ей';
                     } else if (usd_coef % 10 == 1) {
                         response_text += 'рубль';
                         response_tts += 'р+убль';
@@ -160,8 +166,10 @@ module.exports = async (req, res) => {
                     response_tts += ' sil <[350]> ' + sum + ' ';
                     if (usd_coef % 100 > 4 && usd_coef % 100 < 21) {
                         response_tts += 'д+олларов';
+                    } else if (usd_coef % 10 == 0) {
+                        response_tts += 'д+олларов';    
                     } else if (usd_coef % 10 < 1) {
-                        response_tts += 'д+олларов';
+                        response_tts += 'д+оллара';
                     } else if (usd_coef % 10 == 1) {
                         response_tts += 'д+оллар';
                     } else if (usd_coef % 10 < 5) {
@@ -193,6 +201,9 @@ module.exports = async (req, res) => {
                     response_text = 'Учитывая среднестатистическую цену девяностограммового дошика (35 рублей) и курс EUR к RUB по данным ЦБ РФ (1 евро - ' + eur_coef + ' ';
                     response_tts = 'учи+тывая средн+е статист+ическую цену девян+о стограм+ового дошика <[ d oo sh i k a ]> sil <[270]> 35 рубл+ей sil <[350]> и курс +евро к рубл+ю по д+анным центр+ального б+анка эр эф sil <[270]> одн+о +евро sil <[500]>' + eur_coef + ' ';
                     if (eur_coef % 100 > 4 && eur_coef % 100 < 21) {
+                        response_text += 'рублей';
+                        response_tts += 'рубл+ей';
+                    } else if (eur_coef % 10 == 0) {
                         response_text += 'рублей';
                         response_tts += 'рубл+ей';
                     } else if (eur_coef % 10 < 1) {
