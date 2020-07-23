@@ -6,6 +6,6 @@
 
     "dependencies": {
         "micro": "^9.1.0",
-        "xmlhttprequest": "*"
+        "xmlhttprequest": "^1.8.0"
     }
 }
