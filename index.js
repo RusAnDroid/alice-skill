@@ -211,8 +211,8 @@ module.exports = async (req, res) => {
                 response_tts = 'извин+ите sil <[200]> ошибка соедин+ения с центр+альным б+анком эр эф';
             }
         }
+        */
     }
-    */
     
     // В тело ответа вставляются свойства version и session из запроса.
     res.end(JSON.stringify(
