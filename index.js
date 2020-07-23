@@ -90,7 +90,7 @@ module.exports = async (req, res) => {
                     } else if (usd_in && eur_in || usd_in && rub_in || eur_in && rub_in) {
                         response_text = dont_understand_text;
                         response_tts = dont_understand_tts;
-                    } else if (token_pos != 0 && (tokens_arr[token_pos - 1].replace(/\s/g, '').length === 0 || isNaN(tokens_arr[token_pos - 1]))) {
+                    } else if (!usd_flag && (tokens_arr[token_pos - 1].replace(/\s/g, '').length === 0 || isNaN(tokens_arr[token_pos - 1]))) {
                         response_text = dont_understand_text;
                         response_tts = dont_understand_tts;
                     } else if (token_pos == 0 && tokens_arr[0] == '$') {
