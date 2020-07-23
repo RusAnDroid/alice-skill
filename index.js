@@ -258,7 +258,10 @@ module.exports = async (req, res) => {
                 response_text = 'Извините, ошибка соединения с серверами.';
                 response_tts = 'извин+ите sil <[200]> ошибка соедин+ения с сервер+ами'; d
             }
-            if (token_pos == 0 && !usd_flag) {
+            if (request.original_utterance == "") {
+                response_text = first_response_text;
+                response_tts = first_response_tts;
+            } else if (token_pos == 0 && !usd_flag) {
                 response_text = dont_understand_text;
                 response_tts = dont_understand_tts;
             } else if (token_pos == 0 && usd_flag && tokens_arr[0] == '$') {
