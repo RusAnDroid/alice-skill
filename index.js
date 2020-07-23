@@ -142,7 +142,7 @@ module.exports = async (req, res) => {
                         sum = request.nlu.tokens[token_pos];
                     } else {
                         let sub = '';
-                        for (let chr of tokens_arr[0]) {
+                        for (let chr in tokens_arr[0]) {
                             if (chr == '$') {
                                 sum = sub;
                                 sub = '';
