@@ -49,7 +49,7 @@ module.exports = async (req, res) => {
                 if (request.original_utterance == "") {
                     response_text = first_response_text;
                     response_tts = first_response_tts;
-                } else if (request.original_utterance == "Что ты можешь" || request.original_utterance == "Что ты умеешь" || request.original_utterance == "Что ты можешь?" || request.original_utterance == "Что ты умеешь?" || request.original_utterance == "Помошь" || request.original_utterance == "Помомоги" || request.command == "Помоги пожалуйста") {
+                } else if (request.original_utterance == "Что ты можешь" || request.original_utterance == "Что ты умеешь" || request.original_utterance == "Что ты можешь?" || request.original_utterance == "Что ты умеешь?" || request.original_utterance == "Помощь" || request.original_utterance == "Помоги" || request.command == "Помоги пожалуйста") {
                     response_text = first_response_text;
                     response_tts = first_response_tts;
                 } else {
