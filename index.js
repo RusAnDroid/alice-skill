@@ -58,7 +58,7 @@ module.exports = async (req, res) => {
                 token_pos = cnt;
             }
             if (token == 'евро') {
-                eur_in == true;
+                eur_in = true;
                 token_pos = cnt;
             }
             cnt += 1;
