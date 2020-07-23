@@ -126,6 +126,7 @@ module.exports = async (req, res) => {
                 let valute_obj = JSON.parse(xhr.responseText);
                 let usd_coef = Math.floor(valute_obj.Valute.USD.Value);
                 let eur_coef = Math.floor(valute_obj.Valute.EUR.Value);
+                /*
                 if (usd_in) {
                     let sum;
                     if (!usd_flag) sum = tokens_arr[token_pos - 1];
@@ -217,6 +218,7 @@ module.exports = async (req, res) => {
                         response_tts += 'дошиков <[ d oo sh i k o f ]>';
                     }
                 }
+                */
             } else {
                 response_text = 'Извините, ошибка соединения с серверами.';
                 response_tts = 'извин+ите sil <[200]> ошибка соедин+ения с сервер+ами'; d
