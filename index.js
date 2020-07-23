@@ -81,8 +81,8 @@ module.exports = async (req, res) => {
             response_tts = dont_understand_tts;
         } else if (rub_in) {
             let sum = tokens_arr[token_pos - 1];
-            response_text = 'Учитывая среднестатистическую цену девяностограммового дошика - 35 рублей, ' + sum + ' ';
-            response_tts = 'учи+тывая средн+е статист+ическую цену девян+о стограм+ового дошика <[ d oo sh i k a ]> sil <[500]> 35 рубл+ей sil <[200]> ' + sum;
+            response_text = 'Учитывая среднестатистическую цену девяностограммового дошика (35 рублей), ' + sum + ' ';
+            response_tts = 'учи+тывая средн+е статист+ическую цену девян+о стограм+ового дошика <[ d oo sh i k a ]> sil <[270]> 35 рубл+ей sil <[350]> ' + sum;
             if (sum % 100 > 4 && sum % 100 < 21) {
                 response_text += 'рублей';
                 response_tts += 'рубл+ей';
@@ -128,8 +128,8 @@ module.exports = async (req, res) => {
                         sum = tokens_arr[token_pos];
                         sum.pop();
                     }
-                    response_text = 'Учитывая среднестатистическую цену девяностограммового дошика - 35 рублей, ' + sum + ' и курс USD к RUB по данным ЦБ РФ: 1$ - ' + usd_coef + ' ';
-                    response_tts = 'учи+тывая средн+е статист+ическую цену девян+о стограм+ового дошика <[ d oo sh i k a ]> sil <[500]> 35 рубл+ей sil <[200]> ' + sum + ' и курс д+оллара к рубл+ю по д+анным центр+ального б+анка эр эф sil <[500]> од+ин д+оллар sil <[500]> ' + usd_coef + ' ';
+                    response_text = 'Учитывая среднестатистическую цену девяностограммового дошика (35 рублей), ' + sum + ' и курс USD к RUB по данным ЦБ РФ (1$ - ' + usd_coef + ' ';
+                    response_tts = 'учи+тывая средн+е статист+ическую цену девян+о стограм+ового дошика <[ d oo sh i k a ]> sil <[270]> 35 рубл+ей sil <[350]> ' + sum + ' и курс д+оллара к рубл+ю по д+анным центр+ального б+анка эр эф sil <[270]> од+ин д+оллар sil <[500]> ' + usd_coef + ' ';
                     if (usd_coef % 100 > 4 && usd_coef % 100 < 21) {
                         response_text += 'рублей';
                         response_tts += 'рубл+ей';
@@ -143,8 +143,8 @@ module.exports = async (req, res) => {
                         response_text += 'рубля';
                         response_tts += 'рубл+я';
                     }
-                    response_text += ', ' + sum + '$ ';
-                    response_tts += ' sil <[200]> ' + sum + ' ';
+                    response_text += '), ' + sum + '$ ';
+                    response_tts += ' sil <[350]> ' + sum + ' ';
                     if (usd_coef % 100 > 4 && usd_coef % 100 < 21) {
                         response_tts += 'д+олларов';
                     } else if (usd_coef % 10 < 1) {
@@ -172,8 +172,8 @@ module.exports = async (req, res) => {
                     }
                 } else {
                     let sum = tokens_arr[token_pos - 1];
-                    response_text = 'Учитывая среднестатистическую цену девяностограммового дошика - 35 рублей, ' + sum + ' и курс EUR к RUB по данным ЦБ РФ: 1 евро - ' + eur_coef + ' ';
-                    response_tts = 'учи+тывая средн+е статист+ическую цену девян+о стограм+ового дошика <[ d oo sh i k a ]> sil <[500]> 35 рубл+ей sil <[200]> ' + sum + ' и курс +евро к рубл+ю по д+анным центр+ального б+анка эр эф sil <[500]> одн+о +евро sil <[500]>' + eur_coef + ' ';
+                    response_text = 'Учитывая среднестатистическую цену девяностограммового дошика (35 рублей), ' + sum + ' и курс EUR к RUB по данным ЦБ РФ (1 евро - ' + eur_coef + ' ';
+                    response_tts = 'учи+тывая средн+е статист+ическую цену девян+о стограм+ового дошика <[ d oo sh i k a ]> sil <[270]> 35 рубл+ей sil <[350]> ' + sum + ' и курс +евро к рубл+ю по д+анным центр+ального б+анка эр эф sil <[270]> одн+о +евро sil <[500]>' + eur_coef + ' ';
                     if (eur_coef % 100 > 4 && eur_coef % 100 < 21) {
                         response_text += 'рублей';
                         response_tts += 'рубл+ей';
@@ -187,8 +187,8 @@ module.exports = async (req, res) => {
                         response_text += 'рубля';
                         response_tts += 'рубл+я';
                     }
-                    response_text += ', ' + sum + ' евро ';
-                    response_tts += ' sil <[200]> ' + sum + ' +евро ';
+                    response_text += '), ' + sum + ' евро ';
+                    response_tts += ' sil <[350]> ' + sum + ' +евро ';
                     let num = Math.floor(sum / 35) * eur_coef;
                     response_text += ' - это примерно ' + num + ' ';
                     response_tts += ' sil <[500]> это прим+ерно ' + num + ' ';
