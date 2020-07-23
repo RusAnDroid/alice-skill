@@ -34,6 +34,9 @@ module.exports = async (req, res) => {
     
     let tokens_arr;
     
+    let dont_understand_text = 'Извините, я Вас не понимаю.';
+    let dont_understand_tts = 'извин+ите sil <[200]> я вас не поним+аю.';
+    
     if (request.original_utterance == "") {
         response_text = first_response_text;
         response_tts = first_response_tts;
@@ -65,9 +68,6 @@ module.exports = async (req, res) => {
             }
             cnt += 1;
         }
-
-        let dont_understand_text = 'Извините, я Вас не понимаю.';
-        let dont_understand_tts = 'извин+ите sil <[200]> я вас не поним+аю.';
 
         if (token_pos == 0 && !usd_flag) {
             response_text = dont_understand_text;
@@ -257,6 +257,13 @@ module.exports = async (req, res) => {
             } else {
                 response_text = 'Извините, ошибка соединения с серверами.';
                 response_tts = 'извин+ите sil <[200]> ошибка соедин+ения с сервер+ами'; d
+            }
+            if (token_pos == 0 && !usd_flag) {
+                response_text = dont_understand_text;
+                response_tts = dont_understand_tts;
+            } else if (token_pos == 0 && usd_flag && tokens_arr[0] == '$') {
+                response_text = dont_understand_text;
+                response_tts = dont_understand_tts;
             }
             res.end(JSON.stringify(
                 {
