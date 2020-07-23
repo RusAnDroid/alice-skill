@@ -103,12 +103,12 @@ module.exports = async (req, res) => {
                         if (sum % 100 > 4 && sum % 100 < 21) {
                             response_text += 'рублей';
                             response_tts += 'рубл+ей';
-                        } else if (sum % 10 < 1) {
-                            response_text += 'рубля';
-                            response_tts += 'рубл+я';
                         } else if (sum % 10 == 0) {
                             response_text += 'рублей';
                             response_tts += 'рубл+ей';
+                        } else if (sum % 10 < 1) {
+                            response_text += 'рубля';
+                            response_tts += 'рубл+я';
                         } else if (sum % 10 == 1) {
                             response_text += 'рубль';
                             response_tts += 'р+убль';
@@ -150,12 +150,12 @@ module.exports = async (req, res) => {
                         if (usd_coef % 100 > 4 && usd_coef % 100 < 21) {
                             response_text += 'рублей';
                             response_tts += 'рубл+ей';
-                        } else if (usd_coef % 10 < 1) {
-                            response_text += 'рубля';
-                            response_tts += 'рубл+я';
                         } else if (usd_coef % 10 == 0) {
                             response_text += 'рублей';
                             response_tts += 'рубл+ей';
+                        } else if (usd_coef % 10 < 1) {
+                            response_text += 'рубля';
+                            response_tts += 'рубл+я';
                         } else if (usd_coef % 10 == 1) {
                             response_text += 'рубль';
                             response_tts += 'р+убль';
