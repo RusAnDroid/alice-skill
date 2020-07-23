@@ -37,94 +37,6 @@ module.exports = async (req, res) => {
     let dont_understand_text = 'Извините, я Вас не понимаю.';
     let dont_understand_tts = 'извин+ите sil <[200]> я вас не поним+аю.';
     
-    if (request.original_utterance == "") {
-        response_text = first_response_text;
-        response_tts = first_response_tts;
-    } else {
-        tokens_arr = toArr(request.command);
-
-        let cnt = 0;
-        for (let chr of request.command) {
-            if (chr == ' ') cnt += 1;
-            if (chr == '$') {
-                usd_in = true;
-                token_pos = cnt;
-                usd_flag = true;
-            }
-        }
-        cnt = 0;
-        for (let token of tokens_arr) {
-            if (token == 'доллар' || token == 'долларов' || token == 'доллара') {
-                usd_in = true;
-                token_pos = cnt;
-            }
-            if (token == 'р' || token == 'рубля' || token == 'рублей' || token == 'рубль') {
-                rub_in = true;
-                token_pos = cnt;
-            }
-            if (token == 'евро') {
-                eur_in = true;
-                token_pos = cnt;
-            }
-            cnt += 1;
-        }
-
-        if (token_pos == 0 && !usd_flag) {
-            response_text = dont_understand_text;
-            response_tts = dont_understand_tts;
-        } else if (!usd_in && !eur_in && !rub_in) {
-            response_text = dont_understand_text;
-            response_tts = dont_understand_tts;
-        } else if (usd_in && eur_in || usd_in && rub_in || eur_in && rub_in) {
-            response_text = dont_understand_text;
-            response_tts = dont_understand_tts;
-        } else if (tokens_arr[token_pos - 1].replace(/\s/g, '').length === 0 || isNaN(tokens_arr[token_pos - 1])) {
-            response_text = dont_understand_text;
-            response_tts = dont_understand_tts;
-        } else if (rub_in) {
-            let sum = tokens_arr[token_pos - 1];
-            response_text = 'Учитывая среднестатистическую цену девяностограммового дошика (35 рублей), ' + sum + ' ';
-            response_tts = 'учи+тывая средн+е статист+ическую цену девян+о стограм+ового дошика <[ d oo sh i k a ]> sil <[270]> 35 рубл+ей sil <[350]> ' + sum;
-            if (sum % 100 > 4 && sum % 100 < 21) {
-                response_text += 'рублей';
-                response_tts += 'рубл+ей';
-            } else if (sum % 10 < 1) {
-                response_text += 'рубля';
-                response_tts += 'рубл+я';
-            } else if (sum % 10 == 0) {
-                response_text += 'рублей';
-                response_tts += 'рубл+ей';
-            } else if (sum % 10 == 1) {
-                response_text += 'рубль';
-                response_tts += 'р+убль';
-            } else if (sum % 10 < 5) {
-                response_text += 'рубля';
-                response_tts += 'рубл+я';
-            } else {
-                response_text += 'рублей';
-                response_tts += 'рубл+ей';
-            }
-            let num = Math.floor(sum / 35);
-            response_text += ' - это примерно ' + num + ' ';
-            response_tts += ' sil <[500]> это прим+ерно ' + num + ' ';
-            if (num % 100 > 4 && num % 100 < 21) {
-                response_text += 'дошиков.';
-                response_tts += 'дошиков <[ d oo sh i k o f ]>';
-            } else if (num % 10 == 0) {
-                response_text += 'дошиков.';
-                response_tts += 'дошиков <[ d oo sh i k o f ]>';
-            } else if (num % 10 == 1) {
-                response_text += 'дошик.';
-                response_tts += 'дошик <[ d oo sh i k ]>';
-            } else if (num % 10 < 5) {
-                response_text += 'дошика.';
-                response_tts += 'дошика <[ d oo sh i k a ]>';
-            } else {
-                response_text += 'дошиков.';
-                response_tts += 'дошиков <[ d oo sh i k o f ]>';
-            }
-        }
-    }
     let xhr = new XMLHttpRequest();
     xhr.open('GET', 'https://www.cbr-xml-daily.ru/daily_json.js', true);
     xhr.timeout = 3000;
@@ -134,7 +46,94 @@ module.exports = async (req, res) => {
                 let valute_obj = JSON.parse(xhr.responseText);
                 let usd_coef = Math.floor(valute_obj.Valute.USD.Value);
                 let eur_coef = Math.floor(valute_obj.Valute.EUR.Value);
-                if (usd_in) {
+                if (request.original_utterance == "") {
+                    response_text = first_response_text;
+                    response_tts = first_response_tts;
+                } else {
+                    tokens_arr = toArr(request.command);
+
+                    let cnt = 0;
+                    for (let chr of request.command) {
+                        if (chr == ' ') cnt += 1;
+                        if (chr == '$') {
+                            usd_in = true;
+                            token_pos = cnt;
+                            usd_flag = true;
+                        }
+                    }
+                    cnt = 0;
+                    for (let token of tokens_arr) {
+                        if (token == 'доллар' || token == 'долларов' || token == 'доллара') {
+                            usd_in = true;
+                            token_pos = cnt;
+                        }
+                        if (token == 'р' || token == 'рубля' || token == 'рублей' || token == 'рубль') {
+                            rub_in = true;
+                            token_pos = cnt;
+                        }
+                        if (token == 'евро') {
+                            eur_in = true;
+                            token_pos = cnt;
+                        }
+                        cnt += 1;
+                    }
+
+                    if (token_pos == 0 && !usd_flag) {
+                        response_text = dont_understand_text;
+                        response_tts = dont_understand_tts;
+                    } else if (!usd_in && !eur_in && !rub_in) {
+                        response_text = dont_understand_text;
+                        response_tts = dont_understand_tts;
+                    } else if (usd_in && eur_in || usd_in && rub_in || eur_in && rub_in) {
+                        response_text = dont_understand_text;
+                        response_tts = dont_understand_tts;
+                    } else if (tokens_arr[token_pos - 1].replace(/\s/g, '').length === 0 || isNaN(tokens_arr[token_pos - 1])) {
+                        response_text = dont_understand_text;
+                        response_tts = dont_understand_tts;
+                    } else if (rub_in) {
+                        let sum = tokens_arr[token_pos - 1];
+                        response_text = 'Учитывая среднестатистическую цену девяностограммового дошика (35 рублей), ' + sum + ' ';
+                        response_tts = 'учи+тывая средн+е статист+ическую цену девян+о стограм+ового дошика <[ d oo sh i k a ]> sil <[270]> 35 рубл+ей sil <[350]> ' + sum;
+                        if (sum % 100 > 4 && sum % 100 < 21) {
+                            response_text += 'рублей';
+                            response_tts += 'рубл+ей';
+                        } else if (sum % 10 < 1) {
+                            response_text += 'рубля';
+                            response_tts += 'рубл+я';
+                        } else if (sum % 10 == 0) {
+                            response_text += 'рублей';
+                            response_tts += 'рубл+ей';
+                        } else if (sum % 10 == 1) {
+                            response_text += 'рубль';
+                            response_tts += 'р+убль';
+                        } else if (sum % 10 < 5) {
+                            response_text += 'рубля';
+                            response_tts += 'рубл+я';
+                        } else {
+                            response_text += 'рублей';
+                            response_tts += 'рубл+ей';
+                        }
+                        let num = Math.floor(sum / 35);
+                        response_text += ' - это примерно ' + num + ' ';
+                        response_tts += ' sil <[500]> это прим+ерно ' + num + ' ';
+                        if (num % 100 > 4 && num % 100 < 21) {
+                            response_text += 'дошиков.';
+                            response_tts += 'дошиков <[ d oo sh i k o f ]>';
+                        } else if (num % 10 == 0) {
+                            response_text += 'дошиков.';
+                            response_tts += 'дошиков <[ d oo sh i k o f ]>';
+                        } else if (num % 10 == 1) {
+                            response_text += 'дошик.';
+                            response_tts += 'дошик <[ d oo sh i k ]>';
+                        } else if (num % 10 < 5) {
+                            response_text += 'дошика.';
+                            response_tts += 'дошика <[ d oo sh i k a ]>';
+                        } else {
+                            response_text += 'дошиков.';
+                            response_tts += 'дошиков <[ d oo sh i k o f ]>';
+                        }
+                    }
+                } else if (usd_in) {
                     let sum;
                     if (!usd_flag) {
                         sum = tokens_arr[token_pos - 1];
@@ -257,16 +256,6 @@ module.exports = async (req, res) => {
             } else {
                 response_text = 'Извините, ошибка соединения с серверами.';
                 response_tts = 'извин+ите sil <[200]> ошибка соедин+ения с сервер+ами'; d
-            }
-            if (request.original_utterance == "") {
-                response_text = first_response_text;
-                response_tts = first_response_tts;
-            } else if (token_pos == 0 && !usd_flag) {
-                response_text = dont_understand_text;
-                response_tts = dont_understand_tts;
-            } else if (token_pos == 0 && usd_flag && tokens_arr[0] == '$') {
-                response_text = dont_understand_text;
-                response_tts = dont_understand_tts;
             }
             res.end(JSON.stringify(
                 {
