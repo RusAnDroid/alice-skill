@@ -143,7 +143,7 @@ module.exports = async (req, res) => {
                     } else {
                         let tmp1 = '';
                         for (let tmp2 of request.command) {
-                            if (chr == '$') {
+                            if (tmp2 == '$') {
                                 sum = tmp1;
                                 break;
                             } else {
