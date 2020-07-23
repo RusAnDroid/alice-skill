@@ -118,8 +118,6 @@ module.exports = async (req, res) => {
         } else {
             let xhr = new XMLHttpRequest();
             xhr.open('GET', 'https://www.cbr-xml-daily.ru/daily_json.js', false);
-            /*
-            xhr.timeout = 3000;
             xhr.send();
             if (xhr.status == 200) {
                 let valute_obj = JSON.parse(xhr.responseText);
@@ -219,7 +217,7 @@ module.exports = async (req, res) => {
             } else {
                 response_text = 'Извините, ошибка соединения с Центральным Банком РФ.';
                 response_tts = 'извин+ите sil <[200]> ошибка соедин+ения с центр+альным б+анком эр эф';
-            }*/
+            }
         }
     }
     
