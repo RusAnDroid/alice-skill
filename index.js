@@ -135,8 +135,7 @@ module.exports = async (req, res) => {
                     let sum;
                     if (!usd_flag) sum = tokens_arr[token_pos - 1];
                     else {
-                        sum = tokens_arr[token_pos];
-                        sum.pop();
+                        sum = request.nlu.tokens[token_pos];
                     }
                     response_text = 'Учитывая среднестатистическую цену девяностограммового дошика (35 рублей), ' + sum + ' и курс USD к RUB по данным ЦБ РФ (1$ - ' + usd_coef + ' ';
                     response_tts = 'учи+тывая средн+е статист+ическую цену девян+о стограм+ового дошика <[ d oo sh i k a ]> sil <[270]> 35 рубл+ей sil <[350]> ' + sum + ' и курс д+оллара к рубл+ю по д+анным центр+ального б+анка эр эф sil <[270]> од+ин д+оллар sil <[500]> ' + usd_coef + ' ';
@@ -169,7 +168,7 @@ module.exports = async (req, res) => {
                     } else {
                         response_tts += 'д+олларов';
                     }
-                    let num = Math.floor(sum / 35) * usd_coef;
+                    let num = Math.floor(sum * usd_coef / 35);
                     response_text += ' - это примерно ' + num + ' ';
                     response_tts += ' sil <[500]> это прим+ерно ' + num + ' ';
                     if (num % 100 > 4 && num % 100 < 21) {
@@ -210,7 +209,7 @@ module.exports = async (req, res) => {
                     }
                     response_text += '), ' + sum + ' евро ';
                     response_tts += ' sil <[350]> ' + sum + ' +евро ';
-                    let num = Math.floor(sum / 35) * eur_coef;
+                    let num = Math.floor(sum  * eur_coef / 35);
                     response_text += ' - это примерно ' + num + ' ';
                     response_tts += ' sil <[500]> это прим+ерно ' + num + ' ';
                     if (num % 100 > 4 && num % 100 < 21) {
