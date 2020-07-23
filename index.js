@@ -118,7 +118,7 @@ module.exports = async (req, res) => {
         } else {
             let xhr = new XMLHttpRequest();
             xhr.open('GET', 'https://www.cbr-xml-daily.ru/daily_json.js', false);
-            xhr.timeout = 3000;
+            //xhr.timeout = 3000;
             xhr.send(null);
             /*
             if (xhr.status == 200) {
