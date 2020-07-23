@@ -82,16 +82,19 @@ module.exports = async (req, res) => {
                     }
 
                     if (token_pos == 0 && !usd_flag) {
-                        response_text = dont_understand_text + 0;
+                        response_text = dont_understand_text;
                         response_tts = dont_understand_tts;
                     } else if (!usd_in && !eur_in && !rub_in) {
-                        response_text = dont_understand_text + 1;
+                        response_text = dont_understand_text;
                         response_tts = dont_understand_tts;
                     } else if (usd_in && eur_in || usd_in && rub_in || eur_in && rub_in) {
-                        response_text = dont_understand_text + 2;
+                        response_text = dont_understand_text;
                         response_tts = dont_understand_tts;
-                    } else if (!usd_flag && (tokens_arr[token_pos - 1].replace(/\s/g, '').length === 0 || isNaN(tokens_arr[token_pos - 1]))) {
-                        response_text = dont_understand_text + 3;
+                    } else if (token_pos != 0 && (tokens_arr[token_pos - 1].replace(/\s/g, '').length === 0 || isNaN(tokens_arr[token_pos - 1]))) {
+                        response_text = dont_understand_text;
+                        response_tts = dont_understand_tts;
+                    } else if (token_pos == 0 && tokens_arr[0] == '$') {
+                        response_text = dont_understand_text;
                         response_tts = dont_understand_tts;
                     } else if (rub_in) {
                         let sum = tokens_arr[token_pos - 1];
@@ -139,21 +142,8 @@ module.exports = async (req, res) => {
                         let sum;
                         if (!usd_flag) {
                             sum = tokens_arr[token_pos - 1];
-                        } else if (token_pos != 0) {
-                            sum = request.nlu.tokens[token_pos];
                         } else {
-                            sum = 4;
-                            /*
-                            let tmp1 = '';
-                            for (let tmp2 of request.command) {
-                                if (tmp2 == '$') {
-                                    sum = tmp1;
-                                    break;
-                                } else {
-                                    tmp1 += tmp2;
-                                }
-                            }
-                            */
+                            sum = request.nlu.tokens[token_pos];
                         }
                         response_text = 'Учитывая среднестатистическую цену девяностограммового дошика (35 рублей) и курс USD к RUB по данным ЦБ РФ (1$ - ' + usd_coef + ' ';
                         response_tts = 'учи+тывая средн+е статист+ическую цену девян+о стограм+ового дошика <[ d oo sh i k a ]> sil <[270]> 35 рубл+ей sil <[350]> и курс д+оллара к рубл+ю по д+анным центр+ального б+анка эр эф sil <[270]> од+ин д+оллар sil <[500]> ' + usd_coef + ' ';
