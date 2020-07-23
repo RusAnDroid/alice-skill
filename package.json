@@ -5,6 +5,7 @@
     },
 
     "dependencies": {
-        "micro": "^9.1.0"
+        "micro": "^9.1.0",
+        "xhr2": "*"
     }
 }
