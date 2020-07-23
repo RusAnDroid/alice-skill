@@ -132,125 +132,125 @@ module.exports = async (req, res) => {
                             response_text += 'дошиков.';
                             response_tts += 'дошиков <[ d oo sh i k o f ]>';
                         }
-                    }
-                } else if (usd_in) {
-                    let sum;
-                    if (!usd_flag) {
-                        sum = tokens_arr[token_pos - 1];
-                    } else if (token_pos != 0) {
-                        sum = request.nlu.tokens[token_pos];
-                    } else {
-                        sum = 4;
-                        /*
-                        let tmp1 = '';
-                        for (let tmp2 of request.command) {
-                            if (tmp2 == '$') {
-                                sum = tmp1;
-                                break;
-                            } else {
-                                tmp1 += tmp2;
+                    } else if (usd_in) {
+                        let sum;
+                        if (!usd_flag) {
+                            sum = tokens_arr[token_pos - 1];
+                        } else if (token_pos != 0) {
+                            sum = request.nlu.tokens[token_pos];
+                        } else {
+                            sum = 4;
+                            /*
+                            let tmp1 = '';
+                            for (let tmp2 of request.command) {
+                                if (tmp2 == '$') {
+                                    sum = tmp1;
+                                    break;
+                                } else {
+                                    tmp1 += tmp2;
+                                }
                             }
+                            */
                         }
-                        */
-                    }
-                    response_text = 'Учитывая среднестатистическую цену девяностограммового дошика (35 рублей) и курс USD к RUB по данным ЦБ РФ (1$ - ' + usd_coef + ' ';
-                    response_tts = 'учи+тывая средн+е статист+ическую цену девян+о стограм+ового дошика <[ d oo sh i k a ]> sil <[270]> 35 рубл+ей sil <[350]> и курс д+оллара к рубл+ю по д+анным центр+ального б+анка эр эф sil <[270]> од+ин д+оллар sil <[500]> ' + usd_coef + ' ';
-                    if (usd_coef % 100 > 4 && usd_coef % 100 < 21) {
-                        response_text += 'рублей';
-                        response_tts += 'рубл+ей';
-                    } else if (usd_coef % 10 < 1) {
-                        response_text += 'рубля';
-                        response_tts += 'рубл+я';
-                    } else if (usd_coef % 10 == 0) {
-                        response_text += 'рублей';
-                        response_tts += 'рубл+ей';
-                    } else if (usd_coef % 10 == 1) {
-                        response_text += 'рубль';
-                        response_tts += 'р+убль';
-                    } else if (usd_coef % 10 < 5) {
-                        response_text += 'рубля';
-                        response_tts += 'рубл+я';
-                    } else {
-                        response_text += 'рублей';
-                        response_tts += 'рубл+ей';
-                    }
-                    response_text += '), ' + sum + '$ ';
-                    response_tts += ' sil <[350]> ' + sum + ' ';
-                    if (usd_coef % 100 > 4 && usd_coef % 100 < 21) {
-                        response_tts += 'д+олларов';
-                    } else if (usd_coef % 10 == 0) {
-                        response_tts += 'д+олларов';    
-                    } else if (usd_coef % 10 < 1) {
-                        response_tts += 'д+оллара';
-                    } else if (usd_coef % 10 == 1) {
-                        response_tts += 'д+оллар';
-                    } else if (usd_coef % 10 < 5) {
-                        response_tts += 'д+оллара';
-                    } else {
-                        response_tts += 'д+олларов';
-                    }
-                    let num = Math.floor(sum * usd_coef / 35);
-                    response_text += ' - это примерно ' + num + ' ';
-                    response_tts += ' sil <[500]> это прим+ерно ' + num + ' ';
-                    if (num % 100 > 4 && num % 100 < 21) {
-                        response_text += 'дошиков.';
-                        response_tts += 'дошиков <[ d oo sh i k o f ]>';
-                    } else if (num % 10 == 0) {
-                        response_text += 'дошиков.';
-                        response_tts += 'дошиков <[ d oo sh i k o f ]>';
-                    } else if (num % 10 == 1) {
-                        response_text += 'дошик.';
-                        response_tts += 'дошик <[ d oo sh i k ]>';
-                    } else if (num % 10 < 5) {
-                        response_text += 'дошика.';
-                        response_tts += 'дошика <[ d oo sh i k a ]>';
-                    } else {
-                        response_text += 'дошиков.';
-                        response_tts += 'дошиков <[ d oo sh i k o f ]>';
-                    }
-                } else if (eur_in) {
-                    let sum = tokens_arr[token_pos - 1];
-                    response_text = 'Учитывая среднестатистическую цену девяностограммового дошика (35 рублей) и курс EUR к RUB по данным ЦБ РФ (1 евро - ' + eur_coef + ' ';
-                    response_tts = 'учи+тывая средн+е статист+ическую цену девян+о стограм+ового дошика <[ d oo sh i k a ]> sil <[270]> 35 рубл+ей sil <[350]> и курс +евро к рубл+ю по д+анным центр+ального б+анка эр эф sil <[270]> одн+о +евро sil <[500]>' + eur_coef + ' ';
-                    if (eur_coef % 100 > 4 && eur_coef % 100 < 21) {
-                        response_text += 'рублей';
-                        response_tts += 'рубл+ей';
-                    } else if (eur_coef % 10 == 0) {
-                        response_text += 'рублей';
-                        response_tts += 'рубл+ей';
-                    } else if (eur_coef % 10 < 1) {
-                        response_text += 'рубля';
-                        response_tts += 'рубл+я';
-                    } else if (eur_coef % 10 == 1) {
-                        response_text += 'рубль';
-                        response_tts += 'р+убль';
-                    } else if (eur_coef % 10 < 5) {
-                        response_text += 'рубля';
-                        response_tts += 'рубл+я';
-                    } else {
-                        response_text += 'рублей';
-                        response_tts += 'рубл+ей';
-                    }
-                    response_text += '), ' + sum + ' евро ';
-                    response_tts += ' sil <[350]> ' + sum + ' +евро ';
-                    let num = Math.floor(sum  * eur_coef / 35);
-                    response_text += ' - это примерно ' + num + ' ';
-                    response_tts += ' sil <[500]> это прим+ерно ' + num + ' ';
-                    if (num % 100 > 4 && num % 100 < 21) {
-                        response_text += 'дошиков.';
-                        response_tts += 'дошиков <[ d oo sh i k o f ]>';
-                    } else if (num % 10 == 0) {
-                        response_text += 'дошиков.';
-                        response_tts += 'дошиков <[ d oo sh i k o f ]>';
-                    } else if (num % 10 == 1) {
-                        response_text += 'дошик.';
-                        response_tts += 'дошик <[ d oo sh i k ]>';
-                    } else if (num % 10 < 5) {
-                        response_text += 'дошика.';
-                        response_tts += 'дошика <[ d oo sh i k a ]>';
-                    } else {
-                        response_text += 'дошиков.';
-                        response_tts += 'дошиков <[ d oo sh i k o f ]>';
+                        response_text = 'Учитывая среднестатистическую цену девяностограммового дошика (35 рублей) и курс USD к RUB по данным ЦБ РФ (1$ - ' + usd_coef + ' ';
+                        response_tts = 'учи+тывая средн+е статист+ическую цену девян+о стограм+ового дошика <[ d oo sh i k a ]> sil <[270]> 35 рубл+ей sil <[350]> и курс д+оллара к рубл+ю по д+анным центр+ального б+анка эр эф sil <[270]> од+ин д+оллар sil <[500]> ' + usd_coef + ' ';
+                        if (usd_coef % 100 > 4 && usd_coef % 100 < 21) {
+                            response_text += 'рублей';
+                            response_tts += 'рубл+ей';
+                        } else if (usd_coef % 10 < 1) {
+                            response_text += 'рубля';
+                            response_tts += 'рубл+я';
+                        } else if (usd_coef % 10 == 0) {
+                            response_text += 'рублей';
+                            response_tts += 'рубл+ей';
+                        } else if (usd_coef % 10 == 1) {
+                            response_text += 'рубль';
+                            response_tts += 'р+убль';
+                        } else if (usd_coef % 10 < 5) {
+                            response_text += 'рубля';
+                            response_tts += 'рубл+я';
+                        } else {
+                            response_text += 'рублей';
+                            response_tts += 'рубл+ей';
+                        }
+                        response_text += '), ' + sum + '$ ';
+                        response_tts += ' sil <[350]> ' + sum + ' ';
+                        if (usd_coef % 100 > 4 && usd_coef % 100 < 21) {
+                            response_tts += 'д+олларов';
+                        } else if (usd_coef % 10 == 0) {
+                            response_tts += 'д+олларов';    
+                        } else if (usd_coef % 10 < 1) {
+                            response_tts += 'д+оллара';
+                        } else if (usd_coef % 10 == 1) {
+                            response_tts += 'д+оллар';
+                        } else if (usd_coef % 10 < 5) {
+                            response_tts += 'д+оллара';
+                        } else {
+                            response_tts += 'д+олларов';
+                        }
+                        let num = Math.floor(sum * usd_coef / 35);
+                        response_text += ' - это примерно ' + num + ' ';
+                        response_tts += ' sil <[500]> это прим+ерно ' + num + ' ';
+                        if (num % 100 > 4 && num % 100 < 21) {
+                            response_text += 'дошиков.';
+                            response_tts += 'дошиков <[ d oo sh i k o f ]>';
+                        } else if (num % 10 == 0) {
+                            response_text += 'дошиков.';
+                            response_tts += 'дошиков <[ d oo sh i k o f ]>';
+                        } else if (num % 10 == 1) {
+                            response_text += 'дошик.';
+                            response_tts += 'дошик <[ d oo sh i k ]>';
+                        } else if (num % 10 < 5) {
+                            response_text += 'дошика.';
+                            response_tts += 'дошика <[ d oo sh i k a ]>';
+                        } else {
+                            response_text += 'дошиков.';
+                            response_tts += 'дошиков <[ d oo sh i k o f ]>';
+                        }
+                    } else if (eur_in) {
+                        let sum = tokens_arr[token_pos - 1];
+                        response_text = 'Учитывая среднестатистическую цену девяностограммового дошика (35 рублей) и курс EUR к RUB по данным ЦБ РФ (1 евро - ' + eur_coef + ' ';
+                        response_tts = 'учи+тывая средн+е статист+ическую цену девян+о стограм+ового дошика <[ d oo sh i k a ]> sil <[270]> 35 рубл+ей sil <[350]> и курс +евро к рубл+ю по д+анным центр+ального б+анка эр эф sil <[270]> одн+о +евро sil <[500]>' + eur_coef + ' ';
+                        if (eur_coef % 100 > 4 && eur_coef % 100 < 21) {
+                            response_text += 'рублей';
+                            response_tts += 'рубл+ей';
+                        } else if (eur_coef % 10 == 0) {
+                            response_text += 'рублей';
+                            response_tts += 'рубл+ей';
+                        } else if (eur_coef % 10 < 1) {
+                            response_text += 'рубля';
+                            response_tts += 'рубл+я';
+                        } else if (eur_coef % 10 == 1) {
+                            response_text += 'рубль';
+                            response_tts += 'р+убль';
+                        } else if (eur_coef % 10 < 5) {
+                            response_text += 'рубля';
+                            response_tts += 'рубл+я';
+                        } else {
+                            response_text += 'рублей';
+                            response_tts += 'рубл+ей';
+                        }
+                        response_text += '), ' + sum + ' евро ';
+                        response_tts += ' sil <[350]> ' + sum + ' +евро ';
+                        let num = Math.floor(sum  * eur_coef / 35);
+                        response_text += ' - это примерно ' + num + ' ';
+                        response_tts += ' sil <[500]> это прим+ерно ' + num + ' ';
+                        if (num % 100 > 4 && num % 100 < 21) {
+                            response_text += 'дошиков.';
+                            response_tts += 'дошиков <[ d oo sh i k o f ]>';
+                        } else if (num % 10 == 0) {
+                            response_text += 'дошиков.';
+                            response_tts += 'дошиков <[ d oo sh i k o f ]>';
+                        } else if (num % 10 == 1) {
+                            response_text += 'дошик.';
+                            response_tts += 'дошик <[ d oo sh i k ]>';
+                        } else if (num % 10 < 5) {
+                            response_text += 'дошика.';
+                            response_tts += 'дошика <[ d oo sh i k a ]>';
+                        } else {
+                            response_text += 'дошиков.';
+                            response_tts += 'дошиков <[ d oo sh i k o f ]>';
+                        }
                     }
                 }
             } else {
