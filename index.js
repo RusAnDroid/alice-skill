@@ -115,12 +115,13 @@ module.exports = async (req, res) => {
                 response_text += 'дошиков.';
                 response_tts += 'дошиков <[ d oo sh i k o f ]>';
             }
-        } else {
-            let xhr = new XMLHttpRequest();
-            xhr.open('GET', 'https://www.cbr-xml-daily.ru/daily_json.js', true);
-            //xhr.timeout = 3000;
-            xhr.send(null);
-            /*
+        }
+    }
+    let xhr = new XMLHttpRequest();
+    xhr.open('GET', 'https://www.cbr-xml-daily.ru/daily_json.js', true);
+    xhr.timeout = 3000;
+    xhr.onreadystatechange = function () {
+        if(xhr.readyState == 4) {
             if (xhr.status == 200) {
                 let valute_obj = JSON.parse(xhr.responseText);
                 let usd_coef = Math.floor(valute_obj.Valute.USD.Value);
@@ -177,7 +178,7 @@ module.exports = async (req, res) => {
                         response_text += 'дошиков.';
                         response_tts += 'дошиков <[ d oo sh i k o f ]>';
                     }
-                } else {
+                } else if (eur_in) {
                     let sum = tokens_arr[token_pos - 1];
                     response_text = 'Учитывая среднестатистическую цену девяностограммового дошика (35 рублей), ' + sum + ' и курс EUR к RUB по данным ЦБ РФ (1 евро - ' + eur_coef + ' ';
                     response_tts = 'учи+тывая средн+е статист+ическую цену девян+о стограм+ового дошика <[ d oo sh i k a ]> sil <[270]> 35 рубл+ей sil <[350]> ' + sum + ' и курс +евро к рубл+ю по д+анным центр+ального б+анка эр эф sil <[270]> одн+о +евро sil <[500]>' + eur_coef + ' ';
@@ -217,26 +218,24 @@ module.exports = async (req, res) => {
                     }
                 }
             } else {
-                response_text = 'Извините, ошибка соединения с Центральным Банком РФ.';
-                response_tts = 'извин+ите sil <[200]> ошибка соедин+ения с центр+альным б+анком эр эф'; d
+                response_text = 'Извините, ошибка соединения с серверами.';
+                response_tts = 'извин+ите sil <[200]> ошибка соедин+ения с сервер+ами'; d
             }
-            */
-        }
-    }
-    
-    // В тело ответа вставляются свойства version и session из запроса.
-    res.end(JSON.stringify(
-        {
-            version,
-            session,
-            response: {
-                text: response_text,
-                tts: response_tts,
+            res.end(JSON.stringify(
+                {
+                    version,
+                    session,
+                    response: {
+                        text: response_text,
+                        tts: response_tts,
 
-                // Свойство response.end_session возвращается со значением true,
-                // чтобы диалог завершился.
-                end_session: true,
-            },
+                        // Свойство response.end_session возвращается со значением true,
+                        // чтобы диалог завершился.
+                        end_session: true,
+                    },
+                }
+            ));
         }
-    ));
+    };
+    xhr.send(null);
 };
