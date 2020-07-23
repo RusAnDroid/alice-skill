@@ -32,11 +32,13 @@ module.exports = async (req, res) => {
     let token_pos = 0;
     let usd_flag = false;
     
+    let tokens_arr;
+    
     if (request.original_utterance == "") {
         response_text = first_response_text;
         response_tts = first_response_tts;
     } else {
-        let tokens_arr = toArr(request.command);
+        tokens_arr = toArr(request.command);
 
         let cnt = 0;
         for (let chr of request.command) {
@@ -95,6 +97,9 @@ module.exports = async (req, res) => {
             } else if (sum % 10 < 5) {
                 response_text += 'рубля';
                 response_tts += 'рубл+я';
+            } else {
+                response_text += 'рублей';
+                response_tts += 'рубл+ей';
             }
             let num = Math.floor(sum / 35);
             response_text += ' - это примерно ' + num + ' ';
@@ -126,7 +131,6 @@ module.exports = async (req, res) => {
                 let valute_obj = JSON.parse(xhr.responseText);
                 let usd_coef = Math.floor(valute_obj.Valute.USD.Value);
                 let eur_coef = Math.floor(valute_obj.Valute.EUR.Value);
-                /*
                 if (usd_in) {
                     let sum;
                     if (!usd_flag) sum = tokens_arr[token_pos - 1];
@@ -148,6 +152,9 @@ module.exports = async (req, res) => {
                     } else if (usd_coef % 10 < 5) {
                         response_text += 'рубля';
                         response_tts += 'рубл+я';
+                    } else {
+                        response_text += 'рублей';
+                        response_tts += 'рубл+ей';
                     }
                     response_text += '), ' + sum + '$ ';
                     response_tts += ' sil <[350]> ' + sum + ' ';
@@ -159,6 +166,8 @@ module.exports = async (req, res) => {
                         response_tts += 'д+оллар';
                     } else if (usd_coef % 10 < 5) {
                         response_tts += 'д+оллара';
+                    } else {
+                        response_tts += 'д+олларов';
                     }
                     let num = Math.floor(sum / 35) * usd_coef;
                     response_text += ' - это примерно ' + num + ' ';
@@ -195,6 +204,9 @@ module.exports = async (req, res) => {
                     } else if (eur_coef % 10 < 5) {
                         response_text += 'рубля';
                         response_tts += 'рубл+я';
+                    } else {
+                        response_text += 'рублей';
+                        response_tts += 'рубл+ей';
                     }
                     response_text += '), ' + sum + ' евро ';
                     response_tts += ' sil <[350]> ' + sum + ' +евро ';
@@ -218,7 +230,6 @@ module.exports = async (req, res) => {
                         response_tts += 'дошиков <[ d oo sh i k o f ]>';
                     }
                 }
-                */
             } else {
                 response_text = 'Извините, ошибка соединения с серверами.';
                 response_tts = 'извин+ите sil <[200]> ошибка соедин+ения с сервер+ами'; d
