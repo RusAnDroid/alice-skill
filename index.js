@@ -1,6 +1,6 @@
 // Для асинхронной работы используется пакет micro.
 const { json } = require('micro');
-//var XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
+//var XMLHttpRequest = require('xhr2');
 
 function toArr(str) {
     let sub = '';
