@@ -67,7 +67,7 @@ module.exports = async (req, res) => {
         let dont_understand_text = 'Извините, я Вас не понимаю.';
         let dont_understand_tts = 'извин+ите sil <[200]> я вас не поним+аю.';
 
-        /*if (token_pos == 0 && !usd_flag) {
+        if (token_pos == 0 && !usd_flag) {
             response_text = dont_understand_text;
             response_tts = dont_understand_tts;
         } else if (!usd_in && !eur_in && !rub_in) {
@@ -211,7 +211,6 @@ module.exports = async (req, res) => {
                 response_tts = 'извин+ите sil <[200]> ошибка соедин+ения с центр+альным б+анком эр эф';
             }
         }
-        */
     }
     
     // В тело ответа вставляются свойства version и session из запроса.
