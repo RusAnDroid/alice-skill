@@ -23,8 +23,8 @@ module.exports = async (req, res) => {
     const { request, session, version } = await json(req);
 
     let response_text, response_tts;
-    let first_response_text = 'Я могу конвертировать сумму денег в количество дошиков (по 90г)? Пока что эта функция работает только с суммами в RUB, USD и EUR, так как мой разработчик - ленивая скотина)';
-    let first_response_tts = 'Я мог+у конверт+ировать сумму д+енег в количество девян+о стограм+овых дошиков <[ d oo sh i k o f ]> sil <[650]> пока что эта ф+ункция раб+отает т+олько с с+уммами в рубл+ях sil <[200]> д+олларах и +евро sil <[300]> так как мой разраб+отчик sil <[500]> лен+ивая скот+ина';
+    let first_response_text = 'Я могу конвертировать сумму денег в количество дошиков (по 90г). Только скажите сумму и валюту. Пока что эта функция работает только с суммами в RUB, USD и EUR, так как мой разработчик - ленивая скотина)';
+    let first_response_tts = 'Я мог+у конверт+ировать сумму д+енег в количество девян+о стограм+овых дошиков <[ d oo sh i k o f ]> sil <[650]> т+олько скаж+ите сумму и вал+юту sil <[650]> пока что эта ф+ункция раб+отает т+олько с с+уммами в рубл+ях sil <[200]> д+олларах и +евро sil <[300]> так как мой разраб+отчик sil <[500]> лен+ивая скот+ина';
 
     let usd_in = false;
     let eur_in = false;
@@ -49,7 +49,7 @@ module.exports = async (req, res) => {
                 if (request.original_utterance == "") {
                     response_text = first_response_text;
                     response_tts = first_response_tts;
-                } else if (request.original_utterance == "Что ты можешь" || request.original_utterance == "Что ты умеешь" || request.original_utterance == "Что ты можешь?" || request.original_utterance == "Что ты умеешь?") {
+                } else if (request.original_utterance == "Что ты можешь" || request.original_utterance == "Что ты умеешь" || request.original_utterance == "Что ты можешь?" || request.original_utterance == "Что ты умеешь?" || request.original_utterance == "Помошь" || request.original_utterance == "Помомоги" || request.command == "Помоги пожалуйста") {
                     response_text = first_response_text;
                     response_tts = first_response_tts;
                 } else {
