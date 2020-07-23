@@ -6,6 +6,5 @@
 
     "dependencies": {
         "micro": "^9.1.0",
-        "xhr2": "*"
     }
 }
