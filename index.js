@@ -119,7 +119,7 @@ module.exports = async (req, res) => {
             let xhr = new XMLHttpRequest();
             xhr.open('GET', 'https://www.cbr-xml-daily.ru/daily_json.js', false);
             xhr.timeout = 3000;
-            xhr.send();
+            xhr.send(null);
             /*
             if (xhr.status == 200) {
                 let valute_obj = JSON.parse(xhr.responseText);
