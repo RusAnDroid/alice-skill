@@ -141,6 +141,8 @@ module.exports = async (req, res) => {
                     } else if (token_pos != 0) {
                         sum = request.nlu.tokens[token_pos];
                     } else {
+                        sum = 4;
+                        /*
                         let tmp1 = '';
                         for (let tmp2 of request.command) {
                             if (tmp2 == '$') {
@@ -150,6 +152,7 @@ module.exports = async (req, res) => {
                                 tmp1 += tmp2;
                             }
                         }
+                        */
                     }
                     response_text = 'Учитывая среднестатистическую цену девяностограммового дошика (35 рублей) и курс USD к RUB по данным ЦБ РФ (1$ - ' + usd_coef + ' ';
                     response_tts = 'учи+тывая средн+е статист+ическую цену девян+о стограм+ового дошика <[ d oo sh i k a ]> sil <[270]> 35 рубл+ей sil <[350]> и курс д+оллара к рубл+ю по д+анным центр+ального б+анка эр эф sil <[270]> од+ин д+оллар sil <[500]> ' + usd_coef + ' ';
