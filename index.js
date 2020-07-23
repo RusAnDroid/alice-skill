@@ -111,6 +111,9 @@ module.exports = async (req, res) => {
             } else if (num % 10 < 5) {
                 response_text += 'дошика.';
                 response_tts += 'дошика <[ d oo sh i k a ]>';
+            } else {
+                response_text += 'дошиков.';
+                response_tts += 'дошиков <[ d oo sh i k o f ]>';
             }
         } else {
             let xhr = new XMLHttpRequest();
@@ -169,6 +172,9 @@ module.exports = async (req, res) => {
                     } else if (num % 10 < 5) {
                         response_text += 'дошика.';
                         response_tts += 'дошика <[ d oo sh i k a ]>';
+                    } else {
+                        response_text += 'дошиков.';
+                        response_tts += 'дошиков <[ d oo sh i k o f ]>';
                     }
                 } else {
                     let sum = tokens_arr[token_pos - 1];
@@ -204,6 +210,9 @@ module.exports = async (req, res) => {
                     } else if (num % 10 < 5) {
                         response_text += 'дошика.';
                         response_tts += 'дошика <[ d oo sh i k a ]>';
+                    } else {
+                        response_text += 'дошиков.';
+                        response_tts += 'дошиков <[ d oo sh i k o f ]>';
                     }
                 }
             } else {
