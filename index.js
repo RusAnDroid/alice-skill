@@ -120,7 +120,7 @@ module.exports = async (req, res) => {
             xhr.open('GET', 'https://www.cbr-xml-daily.ru/daily_json.js', false);
             xhr.timeout = 3000;
             xhr.send();
-            if (xhr.status == 200) {
+            /*if (xhr.status == 200) {
                 let valute_obj = JSON.parse(xhr.responseText);
                 let usd_coef = Math.floor(valute_obj.Valute.USD.Value);
                 let eur_coef = Math.floor(valute_obj.Valute.EUR.Value);
@@ -219,7 +219,7 @@ module.exports = async (req, res) => {
                 response_text = 'Извините, ошибка соединения с Центральным Банком РФ.';
                 response_tts = 'извин+ите sil <[200]> ошибка соедин+ения с центр+альным б+анком эр эф';
             }
-        }
+        }*/
     }
     
     // В тело ответа вставляются свойства version и session из запроса.
