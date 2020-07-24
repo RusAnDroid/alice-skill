@@ -49,7 +49,7 @@ module.exports = async (req, res) => {
                 if (request.original_utterance == "") {
                     response_text = first_response_text;
                     response_tts = first_response_tts;
-                } else if (request.original_utterance == "Что ты можешь" || request.original_utterance == "Что ты умеешь" || request.original_utterance == "Что ты можешь?" || request.original_utterance == "Что ты умеешь?" || request.original_utterance == "Помощь" || request.original_utterance == "Помоги" || request.command == "Помоги пожалуйста") {
+                } else if (request.original_utterance.toLowerCase() == "что ты можешь" || request.original_utterance.toLowerCase() == "что ты умеешь" || request.original_utterance.toLowerCase() == "что ты можешь?" || request.original_utterance.toLowerCase() == "что ты умеешь?" || request.original_utterance.toLowerCase() == "помощь" || request.original_utterance.toLowerCase() == "помоги" || request.command.toLowerCase() == "помоги пожалуйста" || request.original_utterance.toLowerCase() == "помощь." || request.original_utterance.toLowerCase() == "помощь!" || request.original_utterance.toLowerCase() == "помоги!" || request.original_utterance.toLowerCase() == "помоги" || request.command.toLowerCase() == "помоги пожалуйста.") {
                     response_text = first_response_text;
                     response_tts = first_response_tts;
                 } else {
@@ -248,7 +248,7 @@ module.exports = async (req, res) => {
                 }
             } else {
                 response_text = 'Извините, ошибка соединения с серверами.';
-                response_tts = 'извин+ите sil <[200]> ошибка соедин+ения с сервер+ами'; d
+                response_tts = 'извин+ите sil <[200]> ошибка соедин+ения с сервер+ами';
             }
             res.end(JSON.stringify(
                 {
