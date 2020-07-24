@@ -25,6 +25,9 @@ module.exports = async (req, res) => {
     let response_text, response_tts;
     let first_response_text = 'Я могу конвертировать сумму денег в количество дошиков (по 90г). Только скажите сумму и валюту. Пока что эта функция работает только с суммами в RUB, USD и EUR, так как мой разработчик - ленивая скотина)';
     let first_response_tts = 'Я мог+у конверт+ировать сумму д+енег в количество девян+о стограм+овых дошиков <[ d oo sh i k o f ]> sil <[650]> т+олько скаж+ите сумму и вал+юту sil <[650]> пока что эта ф+ункция раб+отает т+олько с с+уммами в рубл+ях sil <[200]> д+олларах и +евро sil <[300]> так как мой разраб+отчик sil <[500]> лен+ивая скот+ина';
+    
+    let help_text = 'Назовите мне сумму и валюту, а я вам скажу, сколько девяностограммовых дошиков можно купить на эти деньги.';
+    let help_tts = 'назов+ите мне сумму и вал+юту sil <[200]> а я вам скажу sil <[200]> ск+олько девян+о стограм+овых дошиков <[ d oo sh i k o f ]> можно куп+ить на эти д+еньги';
 
     let usd_in = false;
     let eur_in = false;
@@ -35,7 +38,7 @@ module.exports = async (req, res) => {
     let tokens_arr;
     
     let dont_understand_text = 'Извините, я Вас не понимаю.';
-    let dont_understand_tts = 'извин+ите sil <[200]> я вас не поним+аю.';
+    let dont_understand_tts = 'извин+ите sil <[200]> я вас не поним+аю';
     
     let xhr = new XMLHttpRequest();
     xhr.open('GET', 'https://www.cbr-xml-daily.ru/daily_json.js', true);
@@ -50,8 +53,8 @@ module.exports = async (req, res) => {
                     response_text = first_response_text;
                     response_tts = first_response_tts;
                 } else if (request.original_utterance.toLowerCase() == "что ты можешь" || request.original_utterance.toLowerCase() == "что ты умеешь" || request.original_utterance.toLowerCase() == "что ты можешь?" || request.original_utterance.toLowerCase() == "что ты умеешь?" || request.original_utterance.toLowerCase() == "помощь" || request.original_utterance.toLowerCase() == "помоги" || request.command.toLowerCase() == "помоги пожалуйста" || request.original_utterance.toLowerCase() == "помощь." || request.original_utterance.toLowerCase() == "помощь!" || request.original_utterance.toLowerCase() == "помоги!" || request.original_utterance.toLowerCase() == "помоги" || request.command.toLowerCase() == "помоги пожалуйста.") {
-                    response_text = first_response_text;
-                    response_tts = first_response_tts;
+                    response_text = help_text;
+                    response_tts = help_tts;
                 } else {
                     tokens_arr = toArr(request.command);
 
